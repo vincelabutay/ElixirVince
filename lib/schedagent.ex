@@ -49,7 +49,7 @@ defmodule schedagent do
 
 ########CONFIGPARSER##########
 
-    #updated: June 15, 2020 - Ongoing
+    #updated: June 19, 2020 - Ongoing
     #create: test codes for configparse for schedagent
 
     def configparser.file do
@@ -64,24 +64,50 @@ defmodule schedagent do
         :get(parse_result, SQA_Server, host)
         sections(parser_result)
 
+        :configparsepath2 = '/root/sqa/SQAConfig_Unit.txt'
+        {:ok, parse_result} = config_file_path("configparsepath2")
+        :get(parse_result, ManID, directory)
+        :get(parse_result, SQAID, username)
+        :get(parse_result, AgeID, key(ManID+SQAID))
+        sections(parser_result)
+
+
 
 
     end
 end
 
 
-    #updated: June 16, 2020 - Ongoing(June 17, 2020)
+    #updated: June 16, 2020 - Ongoing(June 19, 2020)
     #create directive file with internet on
 
-       def internetison() do
+       def internetison(Data) do
         :inets.start
         status = :httpc.request('http://www.google.com') |> elem(1) |> elem(0)
         if status == {'HTTP/1.1', 200, 'OK'} do
 
             Data = ["SCHEDULE:0730H", "SCHEDULE:1700H", "SCHEDULE:2000H". "ST: 1169", FA],
             Print = string:join(Data, "\n"),
-            file:write_file("C:/Vince/Desktop/elixirtest.txt",  [Print]).
+            #file:write_file("C:/Vince/Desktop/elixirtest.txt",  [Print]).
         return
+
+        def create_task do
+            task = ["ST", "FA"]
+
+            for task <- task do   //result from the comprehension 
+             " ?? "
+        end
+
+        def contains? (Task) do
+            Enum.member?(Data, Task)
+            if Task == ["ST", "FA"] do
+            return true
+        end
+
+
+
+
+
 
 
 
@@ -89,7 +115,7 @@ end
 #####################TESTCODES FOR SUBPROCESS COMMANDS######################
 ############################################################################
 
-defmodule KV do
+
   def start_link do
     Task.start_link(fn -> loop(%{}) end)
   end
