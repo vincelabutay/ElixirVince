@@ -56,19 +56,19 @@ defmodule schedagent do
         use Mix.Config
 
 
-        :configparsepath = '/root/sqa/SQAConfig_Server.txt'
+        configparsepath = '/root/sqa/SQAConfig_Server.txt'
         {:ok, parse_result} = config_file_path("configparsepath")
-        :get(parse_result, SQA_Server, directory)
-        :get(parse_result, SQA_Server, username)
-        :get(parse_result, SQA_Server, password)
-        :get(parse_result, SQA_Server, host)
+        get(parse_result, SQA_Server, directory)
+        get(parse_result, SQA_Server, username)
+        get(parse_result, SQA_Server, password)
+        get(parse_result, SQA_Server, host)
         sections(parser_result)
 
-        :configparsepath2 = '/root/sqa/SQAConfig_Unit.txt'
+        configparsepath2 = '/root/sqa/SQAConfig_Unit.txt'
         {:ok, parse_result} = config_file_path("configparsepath2")
-        :get(parse_result, ManID, directory)
-        :get(parse_result, SQAID, username)
-        :get(parse_result, AgeID, key(ManID+SQAID))
+        get(parse_result, ManID, directory)
+        get(parse_result, SQAID, username)
+        get(parse_result, AgeID, key(ManID+SQAID))
         sections(parser_result)
 
 
