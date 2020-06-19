@@ -13,7 +13,7 @@ defmodule schedagent do
             sqaconf = for item <- tail, into: %{} do
                 [key, value] = String.split(item, ": ")
                 {key, to_charlist(value)}
-        end
+    
 
             unit = File.read!("config/SQAConfig_Unit.txt")
             [_ | tail] = String.split(unit, "\n", trim: true)
@@ -36,7 +36,7 @@ defmodule schedagent do
 
 ###FTP CONNECT###
 
-  #####      :inets.start
+        :inets.start
         {:ok, pid} = :inets.start(:ftpc, host: 'host')
         :ftp.user(pid, 'sqa-cpe-r03', 'Ry6bd5!3')
         :ftp.pwd(pid)
@@ -45,7 +45,7 @@ defmodule schedagent do
         :ftp.lcd(pid, '/Vince/Desktop/Directives')
         :ftp.recv(pid, 'sqaID ++ '.txt')
         :inets.stop(:ftpc, pid)
-        end   #####
+        #end   
 
 ########CONFIGPARSER##########
 
@@ -75,13 +75,14 @@ defmodule schedagent do
 
 
     end
-end
+
 
 
     #updated: June 16, 2020 - Ongoing(June 19, 2020)
     #create directive file with internet on
 
-       def internetison(Data) do
+    def internetison(Data) do
+        
         :inets.start
         status = :httpc.request('http://www.google.com') |> elem(1) |> elem(0)
         if status == {'HTTP/1.1', 200, 'OK'} do
@@ -90,20 +91,21 @@ end
             Print = string:join(Data, "\n"),
             #file:write_file("C:/Vince/Desktop/elixirtest.txt",  [Print]).
         return
+    end
 
-        def create_task do
-            task = ["ST", "FA"]
+    def create_task do
+        task = ["ST", "FA"]
 
-            for task <- task do   //result from the comprehension 
-             " ?? "
-        end
+        for task <- task do   //result from the comprehension 
+        " ?? "
+    end
 
-        def contains? (Task) do
-            Enum.member?(Data, Task)
-            if Task == ["ST", "FA"] do
-            return true
-        end
-
+    def contains? (Task) do
+        Enum.member?(Data, Task)
+        if Task == ["ST", "FA"] do
+        return true
+    end
+end
 
 
 
@@ -116,7 +118,7 @@ end
 ############################################################################
 
 
-  def start_link do
+def start_link do
     Task.start_link(fn -> loop(%{}) end)
   end
 
