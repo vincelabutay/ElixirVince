@@ -75,6 +75,19 @@ defmodule schedagent do
 
 
     end
+    def create_task do
+        task = ["ST", "FA"]
+
+        for task <- task do   //result from the comprehension 
+        "#{task}"
+        end
+
+    def contains? (Task) do
+        Enum.member?(Data, Task)
+        if Task == ["ST", "FA"] do
+        return true
+    end
+    end
 
 
 
@@ -93,20 +106,7 @@ defmodule schedagent do
         return
     end
 
-    def create_task do
-        task = ["ST", "FA"]
-
-        for task <- task do   //result from the comprehension 
-        " ?? "
-    end
-
-    def contains? (Task) do
-        Enum.member?(Data, Task)
-        if Task == ["ST", "FA"] do
-        return true
-    end
-end
-
+    
 
 
 
