@@ -34,22 +34,10 @@ defmodule schedagent do
             false
         end
 
-###FTP CONNECT###
-
-        :inets.start
-        {:ok, pid} = :inets.start(:ftpc, host: 'host')
-        :ftp.user(pid, 'sqa-cpe-r03', 'Ry6bd5!3')
-        :ftp.pwd(pid)
-        :ftp.cd(pid, 'r03/sqa/directives')
-        :ftp.lpwd(pid)
-        :ftp.lcd(pid, '/Vince/Desktop/Directives')
-        :ftp.recv(pid, 'sqaID ++ '.txt')
-        :inets.stop(:ftpc, pid)
-        #end   
 
 ########CONFIGPARSER##########
 
-    #updated: June 19, 2020 - Ongoing
+    #updated: June 19, 2020 - (Ongoing)
     #create: test codes for configparse for schedagent
 
     def configparser.file do
@@ -71,27 +59,26 @@ defmodule schedagent do
         get(parse_result, AgeID, key(ManID+SQAID))
         sections(parser_result)
 
-
-
-
     end
+
+
     def create_task do
-        task = ["ST", "FA"]
+        task = ["ST", "FA", "PING", "BOOT"]
 
         for task <- task do   //result from the comprehension 
         "#{task}"
-        end
+    end
 
     def contains? (Task) do
         Enum.member?(Data, Task)
-        if Task == ["ST", "FA"] do
+        if Task == ["ST", "FA", "PING", "BOOT"] do
         return true
     end
-    end
+    
 
 
 
-    #updated: June 16, 2020 - Ongoing(June 19, 2020)
+    #updated: June 16, 2020 - Ongoing(June 29, 2020)
     #create directive file with internet on
 
     def internetison(Data) do
@@ -103,14 +90,17 @@ defmodule schedagent do
             Data = ["SCHEDULE:0730H", "SCHEDULE:1700H", "SCHEDULE:2000H". "ST: 1169", FA],
             Print = string:join(Data, "\n"),
             #file:write_file("C:/Vince/Desktop/elixirtest.txt",  [Print]).
+            binary = :erlang.term_to_binary(Data)
+            File.write(filename, binary)
         return
     end
 
+    def load(filename) do
+        {status, binary} = File.read(filename)
+        :erlang.binary_to_term binary
+    end
+
     
-
-
-
-
 
 
 ############################################################################
@@ -138,3 +128,4 @@ end
 ############################################################################
 
 
+end
