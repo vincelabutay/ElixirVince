@@ -95,6 +95,9 @@ defmodule schedagent do
         return
     end
 
+    #updated: July 6, 2020
+    #created case statement for pattern matching
+
     def load(filename) do
         {status, binary} = File.read(filename)
 
